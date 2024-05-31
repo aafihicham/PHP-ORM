@@ -1,5 +1,4 @@
 <?php
-// ORMInterface.php
 
 interface ORMInterface
 {

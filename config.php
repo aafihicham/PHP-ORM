@@ -2,7 +2,7 @@
 
 return [
     'host' => 'localhost',
-    'dbname' => 'tst',
+    'dbname' => 'orm',
     'user' => 'root',
     'password' => '',
 ];

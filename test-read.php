@@ -1,5 +1,4 @@
 <?php
-// test-read-product.php
 
 require_once 'ORM.php';
 require_once 'Product.php';

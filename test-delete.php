@@ -1,5 +1,4 @@
 <?php
-// test-delete-product.php
 
 require_once 'ORM.php';
 
