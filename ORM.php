@@ -79,6 +79,7 @@ class ORM implements ORMInterface
         $columns[] = "$column $definition";
     }
     $columns = implode(", ", $columns);
+<<<<<<< HEAD
 
     $sql = "CREATE TABLE IF NOT EXISTS {$this->table} ($columns)";
     $this->db->exec($sql);
@@ -107,4 +108,53 @@ class ORM implements ORMInterface
 
     return $definition;
 }
+=======
+
+    $sql = "CREATE TABLE IF NOT EXISTS {$this->table} ($columns)";
+    $this->db->exec($sql);
+}
+
+
+    public function updateTable()
+    {
+        $currentDefinition = $this->getTableDefinition($this->className); 
+        $newDefinition = $this->getTableDefinition($this->className); 
+    
+        $columnsToAdd = [];
+        foreach ($newDefinition as $column => $definition) {
+            if (!isset($currentDefinition[$column])) {
+                $columnsToAdd[] = "ADD COLUMN $column $definition";
+            }
+        }
+    
+        if (!empty($columnsToAdd)) {
+            $sql = "ALTER TABLE {$this->table} " . implode(", ", $columnsToAdd);
+            $this->db->exec($sql);
+        }
+    }
+
+    private function getTableDefinition($className)
+{
+    $reflectionClass = new ReflectionClass($className);
+    $properties = $reflectionClass->getProperties();
+    $definition = [];
+
+    foreach ($properties as $property) {
+        $name = $property->getName();
+
+        switch ($name) {
+            case 'id':
+                $definition[$name] = 'INT AUTO_INCREMENT PRIMARY KEY';
+                break;
+            case 'price':
+                $definition[$name] = 'DECIMAL(10, 2) NOT NULL';
+                break;
+            default:
+                $definition[$name] = 'VARCHAR(255) NOT NULL';
+        }
+    }
+
+    return $definition;
+}
+>>>>>>> d1cec74791cda1409ad27b9f1e8b12bdc6944434
 }
